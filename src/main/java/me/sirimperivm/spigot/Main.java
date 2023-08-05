@@ -61,13 +61,13 @@ public final class Main extends JavaPlugin {
         setup();
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
-        log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin attivato correttamente!"));
+        log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin attivato correttamente!</RAINBOW>"));
     }
 
     @Override
     public void onDisable() {
         close();
-        log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin disattivato correttamente!"));
+        log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin disattivato correttamente!</RAINBOW>"));
     }
 
     public void disablePlugin() {
