@@ -18,27 +18,20 @@ public class Config {
     private static Logger log = Logger.getLogger("NitsSkyblockCore");
     private static Main plugin = Main.getPlugin();
     private File folder = plugin.getDataFolder();
-    private File settingsFile;
-    private FileConfiguration settings;
-
-    public File dataFile;
-    public FileConfiguration data;
-
-    public void setDataFile(File dataFile) {
-        this.dataFile = dataFile;
-    }
-
-    public void setData(FileConfiguration data) {
-        this.data = data;
-    }
+    private File settingsFile, dataFile;
+    private FileConfiguration settings, data;
 
     public Config() {
         settingsFile = new File(folder, "settings.yml");
         settings = new YamlConfiguration();
+        dataFile = new File(folder, "data.yml");
+        data = new YamlConfiguration();
 
         if (!folder.exists()) folder.mkdir();
 
         if (!settingsFile.exists()) create(settings, settingsFile);
+
+        if (!dataFile.exists()) create(data, dataFile);
     }
 
     public void create(FileConfiguration c, File f) {

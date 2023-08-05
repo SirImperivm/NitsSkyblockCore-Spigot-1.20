@@ -4,10 +4,7 @@ import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.utils.Colors;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 @SuppressWarnings("all")
 public final class Main extends JavaPlugin {
@@ -47,12 +44,6 @@ public final class Main extends JavaPlugin {
             data.connect();
         } else {
             setMysql(false);
-            conf.setDataFile(new File(getDataFolder(), "data.yml"));
-            conf.setData(new YamlConfiguration());
-            if (!conf.dataFile.exists()) {
-                conf.create(conf.data, conf.dataFile);
-            }
-            conf.load(conf.data, conf.dataFile);
         }
     }
 
