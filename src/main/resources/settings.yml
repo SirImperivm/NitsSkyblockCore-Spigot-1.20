@@ -1,0 +1,26 @@
+settings:
+  database:
+    # Qui si può scegliere tra "Flat" e "MySQL" nel secondo caso sono necessari i dati relativi ad un database.
+    type: "MySQL"
+    # Se sopra si ha selezionato "MySQL" qui sotto è obbligatorio inserire l'URL di collegamento;
+    # Il formato accettato è: "jdbc:mysql://<hostIp>:<port>/<databaseName>"
+    # Alla fine (dopo <databaseName> sarà possibile inserire delle opzioni aggiungendo ? alla fine tra l'opzione desiderata e il nome del db.)
+    url: "jdbc:mysql://192.168.1.2:3306/s54_skycore?useSSL=true"
+    user: "u54_ho8qHhlsf8" # Questo è l'username dell'utente mysql che avrà accesso al database.
+    password: "kj30w=AG=gkQSC2e.8^Xis=z" # Questa è la password con cui l'utente mysql entrerà nel database (Lasciare vuoto se mysql accetta senza).
+    tablePrefix: "sc_"
+messages:
+  prefixes:
+    success: "&8[&a!&8] &7"
+    info: "&8[&e!&8] &7"
+    fail: "&8[&c!&8] &7"
+  success:
+    database:
+      connected: "%spPlugin connesso al database!"
+  info:
+    database:
+      disconnected: "%ipPlugin disconnesso dal database!"
+  errors:
+    database:
+      cant-connect: "%fpImpossibile connettersi al database, il plugin si disattiverà!"
+      cant-disconnect: "%fpImpossibile disconnettersi dal database!"
