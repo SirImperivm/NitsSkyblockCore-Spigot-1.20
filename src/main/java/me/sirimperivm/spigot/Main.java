@@ -42,6 +42,7 @@ public final class Main extends JavaPlugin {
             setCanConnectDatabase(true);
             setMysql(true);
             data.connect();
+            data.setup();
         } else {
             setMysql(false);
         }

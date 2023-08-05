@@ -2,13 +2,41 @@ settings:
   database:
     # Qui si può scegliere tra "Flat" e "MySQL" nel secondo caso sono necessari i dati relativi ad un database.
     type: "MySQL"
-    # Se sopra si ha selezionato "MySQL" qui sotto è obbligatorio inserire l'URL di collegamento;
-    # Il formato accettato è: "jdbc:mysql://<hostIp>:<port>/<databaseName>"
-    # Alla fine (dopo <databaseName> sarà possibile inserire delle opzioni aggiungendo ? alla fine tra l'opzione desiderata e il nome del db.)
-    url: "jdbc:mysql://192.168.1.2:3306/s54_skycore?useSSL=true"
+    # Se sopra si ha selezionato "MySQL" qui sotto è obbligatorio inserire le credenziali di accesso;
+    host: "192.168.1.2" # Questo è l'host del server in cui è ospitato il database.
+    port: 3306 # Questa è la porta di accesso.
     user: "u54_ho8qHhlsf8" # Questo è l'username dell'utente mysql che avrà accesso al database.
     password: "kj30w=AG=gkQSC2e.8^Xis=z" # Questa è la password con cui l'utente mysql entrerà nel database (Lasciare vuoto se mysql accetta senza).
-    tablePrefix: "sc_"
+    name: "s54_skycore" # Questo è il nome del database.
+    tablePrefix: "sc_" # Questo è il prefisso con cui iniziano le tabelle nel database (Se non si conosce cosa serve meglio non usarlo).
+    options: "?useSSL=true" # Qua vengono messe le opzioni di collegamento.
+  modules:
+    class:
+      enable: true
+      defaultClassRaw: "Nessuna"
+      defaultClassName: "&cN/A"
+      dayStart: 1500.0
+      nigthStart: 13500.0
+      disallowChat: false
+      world-blacklist: []
+    events:
+      enable: true
+    destroyUnbreakable:
+      enable: true
+      world-blacklist: []
+      block-list:
+        1:
+          material: END_PORTAL_FRAME
+          pickup:
+            enabled: true
+            in-inventory: true
+        2:
+          material: END_PORTAL
+          pickup:
+            enabled: false
+            in-inventory: false
+    autoPickup:
+      enable: true
 messages:
   prefixes:
     success: "&8[&a!&8] &7"
@@ -24,3 +52,7 @@ messages:
     database:
       cant-connect: "%fpImpossibile connettersi al database, il plugin si disattiverà!"
       cant-disconnect: "%fpImpossibile disconnettersi dal database!"
+    no-perm:
+      command: "%fpNecessiti del permesso &c$node&7 per eseguire questo comando."
+      action: "%fpNecessiti del permesso &c$node&7 per eseguire quest'azione."
+    no-console: "%fpLa console non può eseguire questi comandi."
