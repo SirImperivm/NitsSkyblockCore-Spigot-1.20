@@ -4,7 +4,10 @@ import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.utils.Colors;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 @SuppressWarnings("all")
 public final class Main extends JavaPlugin {
@@ -18,9 +21,14 @@ public final class Main extends JavaPlugin {
     private static Modules mods;
     private static Db data;
     public boolean canConnectDatabase;
-
     public void setCanConnectDatabase(boolean canConnectDatabase) {
         this.canConnectDatabase = canConnectDatabase;
+    }
+
+    private boolean isMysql;
+
+    public void setMysql(boolean mysql) {
+        isMysql = mysql;
     }
 
     void setup() {
@@ -35,12 +43,21 @@ public final class Main extends JavaPlugin {
         data = new Db();
         if (dbType.equalsIgnoreCase("MySQL")) {
             setCanConnectDatabase(true);
+            setMysql(true);
             data.connect();
+        } else {
+            setMysql(false);
+            conf.setDataFile(new File(getDataFolder(), "data.yml"));
+            conf.setData(new YamlConfiguration());
+            if (!conf.dataFile.exists()) {
+                conf.create(conf.data, conf.dataFile);
+            }
+            conf.load(conf.data, conf.dataFile);
         }
     }
 
     void close() {
-
+        data.disconnect();
     }
 
     @Override
@@ -55,6 +72,11 @@ public final class Main extends JavaPlugin {
 
     public void disablePlugin() {
         getServer().getPluginManager().disablePlugin(plugin);
+    }
+    public void reloadPlugin() {
+        conf.loadAll();
+        data.disconnect();
+        data.connect();
     }
 
     public static Main getPlugin() {
@@ -75,6 +97,10 @@ public final class Main extends JavaPlugin {
 
     public static String getFailPrefix() {
         return failPrefix;
+    }
+
+    public boolean isMysql() {
+        return isMysql;
     }
 
     public static Modules getMods() {

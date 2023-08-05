@@ -21,6 +21,17 @@ public class Config {
     private File settingsFile;
     private FileConfiguration settings;
 
+    public File dataFile;
+    public FileConfiguration data;
+
+    public void setDataFile(File dataFile) {
+        this.dataFile = dataFile;
+    }
+
+    public void setData(FileConfiguration data) {
+        this.data = data;
+    }
+
     public Config() {
         settingsFile = new File(folder, "settings.yml");
         settings = new YamlConfiguration();
@@ -30,7 +41,7 @@ public class Config {
         if (!settingsFile.exists()) create(settings, settingsFile);
     }
 
-    private void create(FileConfiguration c, File f) {
+    public void create(FileConfiguration c, File f) {
         String n = f.getName();
         try {
             Files.copy(plugin.getResource(n), f.toPath(), new CopyOption[0]);
@@ -63,22 +74,46 @@ public class Config {
 
     public void saveAll() {
         save(settings, settingsFile);
+        if (!plugin.isMysql()) {
+            save(data, dataFile);
+        }
     }
 
     public void loadAll() {
         load(settings, settingsFile);
+        if (!plugin.isMysql()) {
+            load(data, dataFile);
+        }
     }
 
     public File getSettingsFile() {
         return settingsFile;
     }
 
+    public File getDataFile() {
+        return dataFile;
+    }
+
     public FileConfiguration getSettings() {
         return settings;
     }
 
+    public FileConfiguration getData() {
+        return data;
+    }
+
     public static String getTransl(String type, String key) {
         switch (type) {
+            case "data":
+                if (!plugin.isMysql()) {
+                    return Colors.text(Main.getConf().getData().getString(key)
+                            .replace("%sp", Main.getSuccessPrefix())
+                            .replace("%ip", Main.getInfoPrefix())
+                            .replace("%fp", Main.getFailPrefix())
+                    );
+                } else {
+                    return "N/A";
+                }
             default:
                 return Colors.text(Main.getConf().getSettings().getString(key)
                         .replace("%sp", Main.getSuccessPrefix())
