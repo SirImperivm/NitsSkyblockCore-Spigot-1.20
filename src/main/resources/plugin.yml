@@ -1,0 +1,13 @@
+name: NitsSkyblockCore
+version: '${project.version}'
+main: me.sirimperivm.spigot.Main
+api-version: 1.19
+load: STARTUP
+description: Core della Season 2 dello Skyblock di NerdInTheSoul
+authors:
+  - SirImperivm_
+softdepend:
+  - PlaceholderAPI
+  - WorldGuard
+depend:
+  - Vault
