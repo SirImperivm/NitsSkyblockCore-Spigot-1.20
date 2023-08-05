@@ -4,6 +4,7 @@ import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.utils.Colors;
+import me.sirimperivm.spigot.modules.listeners.JoinListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @SuppressWarnings("all")
@@ -23,6 +24,9 @@ public final class Main extends JavaPlugin {
     }
 
     private boolean isMysql;
+    private void log(String value) {
+        plugin.getServer().getConsoleSender().sendMessage(value);
+    }
 
     public void setMysql(boolean mysql) {
         isMysql = mysql;
@@ -55,11 +59,15 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         setup();
+
+        getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin attivato correttamente!"));
     }
 
     @Override
     public void onDisable() {
         close();
+        log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin disattivato correttamente!"));
     }
 
     public void disablePlugin() {

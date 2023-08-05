@@ -14,6 +14,8 @@ public class Modules {
     private static Config conf = Main.getConf();
     private static Db data = Main.getData();
 
+    private static String defaultClassRaw;
+
     private static HashMap<String, Boolean> modulesInfo;
 
     public Modules() {
@@ -22,6 +24,13 @@ public class Modules {
             String path = "settings.modules." + key;
             modulesInfo.put(key, conf.getSettings().getBoolean(path + ".enable"));
         }
+        if (modulesInfo.get("class")) {
+            defaultClassRaw = conf.getSettings().getString("settings.modules.class.defaultClassRaw");
+        }
+    }
+
+    public static String getDefaultClassRaw() {
+        return defaultClassRaw;
     }
 
     public static HashMap<String, Boolean> getModulesInfo() {

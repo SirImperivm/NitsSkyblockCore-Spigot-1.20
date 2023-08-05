@@ -56,4 +56,43 @@ public class UsersClass {
             }
         }
     }
+
+    public void insertMemberData(String username, String userUuid, String userClass) {
+        String query = "INSERT INTO " + database + "(username, userUuid, userClass) VALUES (?, ?, ?);";
+
+        try {
+            PreparedStatement state = conn.prepareStatement(query);
+            state.setString(1, username);
+            state.setString(2, userUuid);
+            state.setString(3, userClass);
+            state.executeUpdate();
+        } catch (SQLException e) {
+            log(plugin.getFailPrefix() + Colors.text("Impossibile inserire i dati di un utente: " +
+                    "\n Username: " + username +
+                    "\n UserUuid: " + userUuid +
+                    "\n UserClass: " + userClass +
+                    "\n...!"));
+            e.printStackTrace();
+        }
+    }
+
+    public boolean existMemberData(String username) {
+        boolean value = false;
+        String query = "SELECT * FROM " + database;
+
+        try {
+            PreparedStatement state = conn.prepareStatement(query);
+            ResultSet rs = state.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("username").equalsIgnoreCase(username)) {
+                    value = true;
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            log(plugin.getFailPrefix() + Colors.text("Impossibile capire se sono presenti dati relativi al membro: &c" + username + "&7 nel database delle classi!"));
+            e.printStackTrace();
+        }
+        return value;
+    }
 }
