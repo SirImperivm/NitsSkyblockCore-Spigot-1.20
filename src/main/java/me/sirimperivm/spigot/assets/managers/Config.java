@@ -18,20 +18,24 @@ public class Config {
     private static Logger log = Logger.getLogger("NitsSkyblockCore");
     private static Main plugin = Main.getPlugin();
     private File folder = plugin.getDataFolder();
-    private File settingsFile, dataFile;
-    private FileConfiguration settings, data;
+    private File settingsFile, dataFile, helpsFile;
+    private FileConfiguration settings, data, helps;
 
     public Config() {
         settingsFile = new File(folder, "settings.yml");
         settings = new YamlConfiguration();
         dataFile = new File(folder, "data.yml");
         data = new YamlConfiguration();
+        helpsFile = new File(folder, "helps.yml");
+        helps = new YamlConfiguration();
 
         if (!folder.exists()) folder.mkdir();
 
         if (!settingsFile.exists()) create(settings, settingsFile);
 
         if (!dataFile.exists()) create(data, dataFile);
+
+        if (!helpsFile.exists()) create(helps, helpsFile);
     }
 
     public void create(FileConfiguration c, File f) {
@@ -70,6 +74,7 @@ public class Config {
         if (!plugin.isMysql()) {
             save(data, dataFile);
         }
+        save(helps, helpsFile);
     }
 
     public void loadAll() {
@@ -77,6 +82,7 @@ public class Config {
         if (!plugin.isMysql()) {
             load(data, dataFile);
         }
+        load(helps, helpsFile);
     }
 
     public File getSettingsFile() {
@@ -87,6 +93,10 @@ public class Config {
         return dataFile;
     }
 
+    public File getHelpsFile() {
+        return helpsFile;
+    }
+
     public FileConfiguration getSettings() {
         return settings;
     }
@@ -95,8 +105,18 @@ public class Config {
         return data;
     }
 
+    public FileConfiguration getHelps() {
+        return helps;
+    }
+
     public static String getTransl(String type, String key) {
         switch (type) {
+            case "helps":
+                return Colors.text(Main.getConf().getHelps().getString(key)
+                        .replace("%sp", Main.getSuccessPrefix())
+                        .replace("%ip", Main.getInfoPrefix())
+                        .replace("%fp", Main.getFailPrefix())
+                );
             case "data":
                 if (!plugin.isMysql()) {
                     return Colors.text(Main.getConf().getData().getString(key)

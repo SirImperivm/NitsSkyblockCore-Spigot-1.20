@@ -8,7 +8,8 @@ import java.io.File;
 @SuppressWarnings("all")
 public enum Configs {
     settings(Main.getConf().getSettings(), Main.getConf().getSettingsFile()),
-    data(!Main.getPlugin().isMysql() ? Main.getConf().getData() : null, !Main.getPlugin().isMysql() ? Main.getConf().getDataFile() : null);
+    data(!Main.getPlugin().isMysql() ? Main.getConf().getData() : null, !Main.getPlugin().isMysql() ? Main.getConf().getDataFile() : null),
+    helps(Main.getConf().getHelps(), Main.getConf().getHelpsFile());
 
     private FileConfiguration c;
     private File f;

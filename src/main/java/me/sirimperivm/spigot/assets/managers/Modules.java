@@ -9,7 +9,7 @@ public class Modules {
 
     private static Main plugin = Main.getPlugin();
     private void log(String value) {
-        plugin.getServer().getConsoleSender().sendMessage(value);
+        plugin.log(value);
     }
     private static Config conf = Main.getConf();
     private static Db data = Main.getData();

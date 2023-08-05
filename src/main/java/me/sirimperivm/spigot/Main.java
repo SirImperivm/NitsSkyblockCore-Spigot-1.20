@@ -4,7 +4,9 @@ import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.utils.Colors;
+import me.sirimperivm.spigot.modules.commands.admin.core.AdminCoreCommand;
 import me.sirimperivm.spigot.modules.listeners.JoinListener;
+import me.sirimperivm.spigot.modules.tabCompleters.AdminCoreTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @SuppressWarnings("all")
@@ -24,7 +26,7 @@ public final class Main extends JavaPlugin {
     }
 
     private boolean isMysql;
-    private void log(String value) {
+    public void log(String value) {
         plugin.getServer().getConsoleSender().sendMessage(value);
     }
 
@@ -60,7 +62,12 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         setup();
 
+        getServer().getPluginCommand("skycore").setExecutor(new AdminCoreCommand());
+
+        getServer().getPluginCommand("skycore").setTabCompleter(new AdminCoreTabCompleter());
+
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
+
         log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin attivato correttamente!</RAINBOW>"));
     }
 

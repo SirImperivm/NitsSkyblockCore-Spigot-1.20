@@ -1,0 +1,8 @@
+helps:
+  admin-commands:
+    core:
+      - "&8&m                              "
+      - ""
+      - "&a/skycore reload &7- &fRicarica il plugin."
+      - ""
+      - "&8&m                              "

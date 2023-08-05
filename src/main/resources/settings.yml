@@ -45,6 +45,8 @@ messages:
   success:
     database:
       connected: "%spPlugin connesso al database!"
+    plugin:
+      reloaded: "%spPlugin ricaricato correttamente."
   info:
     database:
       disconnected: "%ipPlugin disconnesso dal database!"
@@ -56,3 +58,8 @@ messages:
       command: "%fpNecessiti del permesso &c$node&7 per eseguire questo comando."
       action: "%fpNecessiti del permesso &c$node&7 per eseguire quest'azione."
     no-console: "%fpLa console non può eseguire questi comandi."
+permissions:
+  admin-commands:
+    core:
+      main: skycore.core.admin.main
+      reload: skycore.core.admin.reload

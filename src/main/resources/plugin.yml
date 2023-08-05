@@ -11,3 +11,6 @@ softdepend:
   - WorldGuard
 depend:
   - Vault
+
+commands:
+  skycore:

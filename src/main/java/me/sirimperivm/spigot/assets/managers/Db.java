@@ -12,7 +12,7 @@ public class Db {
 
     private static Main plugin = Main.getPlugin();
     private void log(String value) {
-        plugin.getServer().getConsoleSender().sendMessage(value);
+        plugin.log(value);
     }
     private static Config conf = Main.getConf();
     public static Modules mods = Main.getMods();
