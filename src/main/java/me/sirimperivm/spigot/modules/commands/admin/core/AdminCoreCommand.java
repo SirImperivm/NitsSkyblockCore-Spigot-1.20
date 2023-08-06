@@ -2,8 +2,6 @@ package me.sirimperivm.spigot.modules.commands.admin.core;
 
 import me.sirimperivm.spigot.Main;
 import me.sirimperivm.spigot.assets.managers.Config;
-import me.sirimperivm.spigot.assets.managers.Db;
-import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.utils.Colors;
 import me.sirimperivm.spigot.assets.utils.Errors;
 import org.bukkit.command.Command;
@@ -18,8 +16,6 @@ public class AdminCoreCommand implements CommandExecutor {
         plugin.log(value);
     }
     private static Config conf = Main.getConf();
-    private static Modules mods = Main.getMods();
-    private static Db data = Main.getData();
 
     private void getUsage(CommandSender s) {
         for (String usage : conf.getHelps().getStringList("helps.admin-commands.core")) {

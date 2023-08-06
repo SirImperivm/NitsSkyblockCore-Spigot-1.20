@@ -18,24 +18,28 @@ public class Config {
     private static Logger log = Logger.getLogger("NitsSkyblockCore");
     private static Main plugin = Main.getPlugin();
     private File folder = plugin.getDataFolder();
-    private File settingsFile, dataFile, helpsFile;
-    private FileConfiguration settings, data, helps;
+    private File settingsFile, helpsFile, racesFile, guisFile;
+    private FileConfiguration settings, helps, races, guis;
 
     public Config() {
         settingsFile = new File(folder, "settings.yml");
         settings = new YamlConfiguration();
-        dataFile = new File(folder, "data.yml");
-        data = new YamlConfiguration();
         helpsFile = new File(folder, "helps.yml");
         helps = new YamlConfiguration();
+        racesFile = new File(folder, "races.yml");
+        races = new YamlConfiguration();
+        guisFile = new File(folder, "guis.yml");
+        guis = new YamlConfiguration();
 
         if (!folder.exists()) folder.mkdir();
 
         if (!settingsFile.exists()) create(settings, settingsFile);
 
-        if (!dataFile.exists()) create(data, dataFile);
-
         if (!helpsFile.exists()) create(helps, helpsFile);
+
+        if (!racesFile.exists()) create(races, racesFile);
+
+        if (!guisFile.exists()) create(guis, guisFile);
     }
 
     public void create(FileConfiguration c, File f) {
@@ -71,42 +75,48 @@ public class Config {
 
     public void saveAll() {
         save(settings, settingsFile);
-        if (!plugin.isMysql()) {
-            save(data, dataFile);
-        }
         save(helps, helpsFile);
+        save(races, racesFile);
+        save(guis, guisFile);
     }
 
     public void loadAll() {
         load(settings, settingsFile);
-        if (!plugin.isMysql()) {
-            load(data, dataFile);
-        }
         load(helps, helpsFile);
+        load(races, racesFile);
+        load(guis, guisFile);
     }
 
     public File getSettingsFile() {
         return settingsFile;
     }
 
-    public File getDataFile() {
-        return dataFile;
-    }
-
     public File getHelpsFile() {
         return helpsFile;
+    }
+
+    public File getRacesFile() {
+        return racesFile;
+    }
+
+    public File getGuisFile() {
+        return guisFile;
     }
 
     public FileConfiguration getSettings() {
         return settings;
     }
 
-    public FileConfiguration getData() {
-        return data;
-    }
-
     public FileConfiguration getHelps() {
         return helps;
+    }
+
+    public FileConfiguration getRaces() {
+        return races;
+    }
+
+    public FileConfiguration getGuis() {
+        return guis;
     }
 
     public static String getTransl(String type, String key) {
@@ -117,16 +127,18 @@ public class Config {
                         .replace("%ip", Main.getInfoPrefix())
                         .replace("%fp", Main.getFailPrefix())
                 );
-            case "data":
-                if (!plugin.isMysql()) {
-                    return Colors.text(Main.getConf().getData().getString(key)
-                            .replace("%sp", Main.getSuccessPrefix())
-                            .replace("%ip", Main.getInfoPrefix())
-                            .replace("%fp", Main.getFailPrefix())
-                    );
-                } else {
-                    return "N/A";
-                }
+            case "races":
+                return Colors.text(Main.getConf().getRaces().getString(key)
+                        .replace("%sp", Main.getSuccessPrefix())
+                        .replace("%ip", Main.getInfoPrefix())
+                        .replace("%fp", Main.getFailPrefix())
+                );
+            case "guis":
+                return Colors.text(Main.getConf().getGuis().getString(key)
+                        .replace("%sp", Main.getSuccessPrefix())
+                        .replace("%ip", Main.getInfoPrefix())
+                        .replace("%fp", Main.getFailPrefix())
+                );
             default:
                 return Colors.text(Main.getConf().getSettings().getString(key)
                         .replace("%sp", Main.getSuccessPrefix())

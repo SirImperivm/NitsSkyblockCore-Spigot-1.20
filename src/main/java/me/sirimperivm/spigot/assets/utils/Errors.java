@@ -14,7 +14,7 @@ public class Errors {
         if (s.hasPermission(node))
             return false;
         s.sendMessage(Config.getTransl("settings", "messages.errors.no-perm.command")
-                .replace("$node", node));
+                .replace("${node}", node));
         return true;
     }
 
@@ -22,7 +22,7 @@ public class Errors {
         if (p.hasPermission(node))
             return false;
         p.sendMessage(Config.getTransl("settings", "messages.errors.no-perm.action")
-                .replace("$node", node));
+                .replace("${node}", node));
         return true;
     }
 

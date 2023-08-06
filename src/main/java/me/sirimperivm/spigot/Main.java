@@ -5,8 +5,10 @@ import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.utils.Colors;
 import me.sirimperivm.spigot.modules.commands.admin.core.AdminCoreCommand;
+import me.sirimperivm.spigot.modules.commands.admin.races.AdminRaceCommand;
 import me.sirimperivm.spigot.modules.listeners.JoinListener;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminCoreTabCompleter;
+import me.sirimperivm.spigot.modules.tabCompleters.AdminRaceTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @SuppressWarnings("all")
@@ -17,41 +19,34 @@ public final class Main extends JavaPlugin {
     private static String successPrefix;
     private static String infoPrefix;
     private static String failPrefix;
-    private static String dbType;
-    private static Modules mods;
     private static Db data;
-    public boolean canConnectDatabase;
-    public void setCanConnectDatabase(boolean canConnectDatabase) {
-        this.canConnectDatabase = canConnectDatabase;
+    private static Modules mods;
+    private static String defaultRaceRaw;
+    private static String defaultRaceName;
+
+    private boolean canConnect = false;
+
+    public void setCanConnect(boolean canConnect) {
+        this.canConnect = canConnect;
     }
 
-    private boolean isMysql;
     public void log(String value) {
         plugin.getServer().getConsoleSender().sendMessage(value);
-    }
-
-    public void setMysql(boolean mysql) {
-        isMysql = mysql;
     }
 
     void setup() {
         plugin = this;
         conf = new Config();
         conf.loadAll();
-        dbType = conf.getSettings().getString("settings.database.type");
         successPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.success"));
         infoPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.info"));
         failPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.fail"));
-        mods = new Modules();
+        defaultRaceRaw = conf.getSettings().getString("settings.modules.races.defaultRaceRaw");
+        defaultRaceName = Colors.text(conf.getSettings().getString("settings.modules.races.defaultRaceName"));
+        canConnect = true;
         data = new Db();
-        if (dbType.equalsIgnoreCase("MySQL")) {
-            setCanConnectDatabase(true);
-            setMysql(true);
-            data.connect();
-            data.setup();
-        } else {
-            setMysql(false);
-        }
+        data.setup();
+        mods = data.getMods();
     }
 
     void close() {
@@ -63,8 +58,10 @@ public final class Main extends JavaPlugin {
         setup();
 
         getServer().getPluginCommand("skycore").setExecutor(new AdminCoreCommand());
+        getServer().getPluginCommand("racesadmin").setExecutor(new AdminRaceCommand());
 
         getServer().getPluginCommand("skycore").setTabCompleter(new AdminCoreTabCompleter());
+        getServer().getPluginCommand("racesadmin").setTabCompleter(new AdminRaceTabCompleter());
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
 
@@ -82,8 +79,7 @@ public final class Main extends JavaPlugin {
     }
     public void reloadPlugin() {
         conf.loadAll();
-        data.disconnect();
-        data.connect();
+        mods.setupModules();
     }
 
     public static Main getPlugin() {
@@ -106,15 +102,23 @@ public final class Main extends JavaPlugin {
         return failPrefix;
     }
 
-    public boolean isMysql() {
-        return isMysql;
+    public static String getDefaultRaceRaw() {
+        return defaultRaceRaw;
     }
 
-    public static Modules getMods() {
-        return mods;
+    public static String getDefaultRaceName() {
+        return defaultRaceName;
+    }
+
+    public boolean getCanConnect() {
+        return canConnect;
     }
 
     public static Db getData() {
         return data;
+    }
+
+    public static Modules getMods() {
+        return mods;
     }
 }

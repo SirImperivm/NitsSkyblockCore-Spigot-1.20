@@ -21,11 +21,12 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
 
-        if (mods.getModulesInfo().get("class")) {
+        if (mods.getModulesInfo().get("races")) {
             String username = p.getName();
-            String uuid = p.getUniqueId().toString().replace("-", "");
-            if (!p.hasPlayedBefore() || !data.getUsersClass().existMemberData(username)) {
-                data.getUsersClass().insertMemberData(username, uuid, mods.getDefaultClassRaw());
+            String uuid = p.getUniqueId().toString();
+            if (!data.getUsersRaces().existMemberData(username)) {
+                String defaultRaceRaw = conf.getSettings().getString("settings.modules.races.defaultRaceRaw");
+                data.getUsersRaces().insertMemberData(username, uuid, defaultRaceRaw);
             }
         }
     }

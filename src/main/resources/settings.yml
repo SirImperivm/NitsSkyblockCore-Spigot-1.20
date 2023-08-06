@@ -1,7 +1,5 @@
 settings:
   database:
-    # Qui si può scegliere tra "Flat" e "MySQL" nel secondo caso sono necessari i dati relativi ad un database.
-    type: "MySQL"
     # Se sopra si ha selezionato "MySQL" qui sotto è obbligatorio inserire le credenziali di accesso;
     host: "192.168.1.2" # Questo è l'host del server in cui è ospitato il database.
     port: 3306 # Questa è la porta di accesso.
@@ -11,10 +9,10 @@ settings:
     tablePrefix: "sc_" # Questo è il prefisso con cui iniziano le tabelle nel database (Se non si conosce cosa serve meglio non usarlo).
     options: "?useSSL=true" # Qua vengono messe le opzioni di collegamento.
   modules:
-    class:
+    races:
       enable: true
-      defaultClassRaw: "Nessuna"
-      defaultClassName: "&cN/A"
+      defaultRaceRaw: "Nessuna"
+      defaultRaceName: "&cN/A"
       dayStart: 1500.0
       nigthStart: 13500.0
       disallowChat: false
@@ -43,23 +41,88 @@ messages:
     info: "&8[&e!&8] &7"
     fail: "&8[&c!&8] &7"
   success:
-    database:
-      connected: "%spPlugin connesso al database!"
     plugin:
       reloaded: "%spPlugin ricaricato correttamente."
+    admin:
+      races:
+        created:
+          - "&8&m                              "
+          - "<SOLID:26AD39>&lRazza Creata!"
+          - ""
+          - "<SOLID:CAD224>Informazioni:"
+          - " &e🟆 &7Nome: &e${raceName}"
+          - " &e🟆 &7Id: &e${raceId}"
+          - "&8&m                              "
+          - "${copyRaceId}"
+        deleted: "%spRimossa la razza &a${raceName}&7."
+        targets:
+          set: "%spHai impostato la razza &a${raceName}&7 all'utente &a${username}&7."
+          reset: "%spHai resettato la razza all'utente &a${username}&7."
   info:
-    database:
-      disconnected: "%ipPlugin disconnesso dal database!"
+    admin:
+      races:
+        info:
+          hasRace:
+            - "&8&m                              "
+            - "&8[&e!&8] &7L'utente fa parte della razza &e${raceName}&7."
+            - "&8&m                              "
+          hasntRace:
+            - "&8&m                              "
+            - "&8[&c!&8] &7L'utente non ha una razza."
+            - "&8&m                              "
+    users:
+      races:
+        received:
+          from-admin: "%ipHai ricevuto la razza &e${raceName}&7 da un amministratore."
+        reset:
+          from-death: "%ipLa razza &e${raceName}&7 è stata eliminata, non ne fai più parte."
+          from-admin: "%ipUn amministratore ha rimosso la tua razza."
   errors:
-    database:
-      cant-connect: "%fpImpossibile connettersi al database, il plugin si disattiverà!"
-      cant-disconnect: "%fpImpossibile disconnettersi dal database!"
     no-perm:
-      command: "%fpNecessiti del permesso &c$node&7 per eseguire questo comando."
-      action: "%fpNecessiti del permesso &c$node&7 per eseguire quest'azione."
+      command: "%fpNecessiti del permesso &c${node}&7 per eseguire questo comando."
+      action: "%fpNecessiti del permesso &c${node}&7 per eseguire quest'azione."
     no-console: "%fpLa console non può eseguire questi comandi."
+    admin:
+      races:
+        already-exists: "%fpEsiste già una razza con questo nome."
+        dont-exists: "%fpNon esiste una razza con questo nome."
+        targets:
+          user-not-found: "%fpQuest'utente non è mai entrato nel server."
+          already-have: "%fpL'utente ha già la classe richiesta."
+    general:
+      module-disabled: "%fpModulo non attivo."
+  others:
+    admin:
+      races:
+        list:
+          header: "&8&m                              "
+          title: "<SOLID:26AD39>&lLista delle Razze:"
+          spacer: ""
+          lines:
+            title: "<SOLID:CAD224>Razza:"
+            line: " &e🟆 &f${raceName}"
+          footer: "&8&m                              "
+    users:
+      races:
+        list:
+          header: "&8&m                              "
+          title: "<SOLID:26AD39>&lLista delle Razze:"
+          spacer: ""
+          lines:
+            title: "<SOLID:CAD224>Razza:"
+            line: " &e🟆 &f${raceName}"
+          footer: "&8&m                              "
 permissions:
   admin-commands:
     core:
-      main: skycore.core.admin.main
-      reload: skycore.core.admin.reload
+      main: skycore.admin.core.main
+      reload: skycore.admin.core.reload
+    races:
+      main: skycore.admin.races.main
+      create: skycore.admin.races.create
+      delete: skycore.admin.races.delete
+      targets:
+        set: skycore.admin.races.target-set
+        reset: skycore.admin.races.target-reset
+        info: skycore.admin.races.info
+      list: skycore.admin.races.list

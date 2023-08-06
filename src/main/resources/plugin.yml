@@ -16,3 +16,6 @@ commands:
   skycore:
     aliases:
       - skyc
+  racesadmin:
+    aliases:
+      - ra

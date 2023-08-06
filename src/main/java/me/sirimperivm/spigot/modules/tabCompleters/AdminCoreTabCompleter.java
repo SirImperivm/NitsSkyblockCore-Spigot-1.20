@@ -2,8 +2,6 @@ package me.sirimperivm.spigot.modules.tabCompleters;
 
 import me.sirimperivm.spigot.Main;
 import me.sirimperivm.spigot.assets.managers.Config;
-import me.sirimperivm.spigot.assets.managers.Db;
-import me.sirimperivm.spigot.assets.managers.Modules;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -19,8 +17,6 @@ public class AdminCoreTabCompleter implements TabCompleter {
         plugin.log(value);
     }
     private static Config conf = Main.getConf();
-    private static Modules mods = Main.getMods();
-    private static Db data = Main.getData();
 
     @Override
     public List<String> onTabComplete(CommandSender s, Command c, String l, String[] a) {
