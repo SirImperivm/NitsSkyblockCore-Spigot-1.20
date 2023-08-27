@@ -1,0 +1,128 @@
+guis:
+  mainRacesGui:
+    title: "&9&lScegli una Razza"
+    rows: 6
+    items:
+      filler_nero:
+        material: BLACK_STAINED_GLASS_PANE
+        displayName: "&0*"
+        lore: []
+        glowing: false
+        itemFlags: []
+        model: 0
+        slots:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 17
+          - 18
+          - 26
+          - 27
+          - 35
+          - 36
+          - 44
+          - 45
+          - 46
+          - 47
+          - 49
+          - 51
+          - 52
+          - 53
+        action: NOTHING
+      filler_bianco:
+        material: WHITE_STAINED_GLASS_PANE
+        displayName: "&f*"
+        lore: []
+        glowing: false
+        itemFlags: []
+        model: 0
+        slots:
+          - 12
+          - 13
+          - 14
+          - 20
+          - 22
+          - 24
+          - 28
+          - 31
+          - 34
+          - 37
+          - 40
+          - 43
+        action: NOTHING
+      close:
+        material: BARRIER
+        displayName: "<SOLID:FF3600>&nChiudi"
+        lore: []
+        glowing: true
+        itemFlags: []
+        model: 0
+        slots:
+          - 48
+        action: CLOSE_GUI
+      resetRace:
+        material: RED_CONCRETE
+        displayName: "<SOLID:FF9300>&nResetta la razza."
+        lore: []
+        glowing: true
+        itemFlags: []
+        model: 0
+        slots:
+          - 50
+        action: RESET_RACE
+      testRace:
+        available:
+          material: LIME_DYE
+          displayName: "&aProva"
+          lore:
+            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
+            - " &8▪ &7Razza &9➳ &7${raceTitle}"
+            - ""
+            - "&b&lPotenziamenti di Giorno:"
+            - " &8▪ &7Speed I"
+            - " &8▪ &7+ 2 Cuori"
+            - ""
+            - "&9&lPotenziamenti di Notte:"
+            - " &8▪ &7Speed I"
+            - " &8▪ &7+ 6 Cuori"
+            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
+          glowing: true
+          itemFlags: []
+          model: 9
+        not-available:
+          material: GRAY_DYE
+          displayName: "&aProva"
+          lore:
+            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
+            - " &8▪ &7Razza &9➳ &7${raceTitle}"
+            - ""
+            - " &cNon hai accesso a questa razza."
+            - ""
+            - "&3&lRequisito:"
+            - "&a€ &f2,5k"
+            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
+          glowing: false
+          itemFlags: []
+          model: 9
+          slots:
+        action: CHOOSE_RACE
+        slots:
+          - 21
+        requirements:
+          1:
+            type: permission
+            node: skycore.getrace.test
+          2:
+            type: money
+            value: 2500.0
+        settings:
+          raceName: Test
+          requirements:
+            not-have: "&4[&c!&4] &7Non hai i requisiti adatti per questa razza. &4[&c!&4] "

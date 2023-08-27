@@ -9,11 +9,21 @@ helps:
     races:
       - "&8&m                              "
       - ""
-      - "&a/racesadmin(ra) create &e<razza> &7- &fCrei una razza."
+      - "&a/racesadmin(ra) create &e<razza> <titolo> &7- &fCrei una razza."
       - "&a/racesadmin(ra) delete &e<razza> &7- &fElimini una razza."
       - "&a/racesadmin(ra) info &e<nomeplayer> &7- &fIndica il nome della razza dell'utente scelto."
       - "&a/racesadmin(ra) list &7- &fMostra la lista delle razze."
       - "&a/racesadmin(ra) reset &e<nomeplayer> &7- &fTogli la razza ad un utente."
       - "&a/racesadmin(ra) set &e<nomeplayer> <razza> &7- &fImposti una razza ad un utente."
+      - ""
+      - "&8&m                              "
+  user-commands:
+    races:
+      - "&8&m                              "
+      - ""
+      - "&a/race &5[help] &7- &fApre questa linea di dialogo."
+      - "&a/race gui &7- &fApre la gui di scelta delle razze."
+      - "&a/race choose &e<nomerazza> &7- &fScegli una razza tra le tante."
+      - "&a/race reset &7- &fResetti la tua razza."
       - ""
       - "&8&m                              "

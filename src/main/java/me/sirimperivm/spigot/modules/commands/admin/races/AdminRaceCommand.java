@@ -57,16 +57,19 @@ public class AdminRaceCommand implements CommandExecutor {
                             s.sendMessage(Config.getTransl("settings", "messages.others.admin.races.list.spacer"));
                             s.sendMessage(Config.getTransl("settings", "messages.others.admin.races.list.lines.title"));
                             for (String generated : generatedRacesList.keySet()) {
-                                s.sendMessage(Config.getTransl("settings", "messages.others.admin.races.list.lines.line")
-                                        .replace("${raceName}", generatedRacesList.get(generated))
-                                );
-                                if (s instanceof Player) {
-                                    TextComponent component = new TextComponent(Colors.text("    &5[Copia l'ID]"));
-                                    component.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, generated));
-                                    component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(generated).create()));
-                                    s.spigot().sendMessage(component);
-                                } else {
-                                    s.sendMessage(Colors.text("   &5Copia l'ID &f-> &7" + generated));
+                                String raceName = generatedRacesList.get(generated);
+                                if (!raceName.equalsIgnoreCase(Main.getDefaultRaceRaw())) {
+                                    s.sendMessage(Config.getTransl("settings", "messages.others.admin.races.list.lines.line")
+                                            .replace("${raceName}", raceName)
+                                    );
+                                    if (s instanceof Player) {
+                                        TextComponent component = new TextComponent(Colors.text("    &5[Copia l'ID]"));
+                                        component.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, generated));
+                                        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(generated).create()));
+                                        s.spigot().sendMessage(component);
+                                    } else {
+                                        s.sendMessage(Colors.text("   &5Copia l'ID &f-> &7" + generated));
+                                    }
                                 }
                             }
                             s.sendMessage(Config.getTransl("settings", "messages.others.admin.races.list.footer"));
@@ -75,14 +78,7 @@ public class AdminRaceCommand implements CommandExecutor {
                         getUsage(s);
                     }
                 } else if (a.length == 2) {
-                    if (a[0].equalsIgnoreCase("create")) {
-                        if (Errors.noPermCommand(s, conf.getSettings().getString("permissions.admin-commands.races.create"))) {
-                            return true;
-                        } else {
-                            String raceName = a[1];
-                            mods.createRace(s, raceName);
-                        }
-                    } else if (a[0].equalsIgnoreCase("delete")) {
+                    if (a[0].equalsIgnoreCase("delete")) {
                         if (Errors.noPermCommand(s, conf.getSettings().getString("permissions.admin-commands.races.delete"))) {
                             return true;
                         } else {
@@ -94,7 +90,7 @@ public class AdminRaceCommand implements CommandExecutor {
                             return true;
                         } else {
                             String userName = a[1];
-                            mods.resetRace(s, userName, "fromAdmin");
+                            mods.adminResetUserRace(s, userName);
                         }
                     } else if (a[0].equalsIgnoreCase("info")) {
                         if (Errors.noPermCommand(s, conf.getSettings().getString("permissions.admin-commands.races.targets.info"))) {
@@ -120,7 +116,15 @@ public class AdminRaceCommand implements CommandExecutor {
                         getUsage(s);
                     }
                 } else if (a.length == 3) {
-                    if (a[0].equalsIgnoreCase("set")) {
+                    if (a[0].equalsIgnoreCase("create")) {
+                        if (Errors.noPermCommand(s, conf.getSettings().getString("permissions.admin-commands.races.create"))) {
+                            return true;
+                        } else {
+                            String raceName = a[1];
+                            String title = a[2];
+                            mods.createRace(s, raceName, title);
+                        }
+                    } else if (a[0].equalsIgnoreCase("set")) {
                         if (Errors.noPermCommand(s, conf.getSettings().getString("permissions.admin-commands.races.targets.set"))) {
                             return true;
                         } else {
@@ -129,7 +133,7 @@ public class AdminRaceCommand implements CommandExecutor {
                                 String raceName = a[2];
                                 if (mods.existRace(raceName)) {
                                     if (!raceName.equalsIgnoreCase(data.getUsersRaces().getUserRace(playerName))) {
-                                        mods.setRace(s, playerName, raceName, "fromAdmin");
+                                        mods.adminSetUserRace(s, playerName, raceName);
                                     } else {
                                         s.sendMessage(Config.getTransl("settings", "messages.errors.admin.races.targets.already-have"));
                                     }

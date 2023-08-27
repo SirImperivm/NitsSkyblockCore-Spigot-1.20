@@ -39,7 +39,7 @@ public class Races {
 
     public void createTable() {
         if (!tableExists()) {
-            String query = "CREATE TABLE " + database + "(`raceId` TEXT NOT NULL, `raceName` TEXT NOT NULL);";
+            String query = "CREATE TABLE " + database + "(`id` INT AUTO_INCREMENT primary key NOT NULL, `raceId` TEXT NOT NULL, `raceName` TEXT NOT NULL);";
 
             try {
                 PreparedStatement state = conn.prepareStatement(query);

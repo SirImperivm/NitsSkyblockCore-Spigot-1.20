@@ -8,9 +8,12 @@ authors:
   - SirImperivm_
 softdepend:
   - PlaceholderAPI
-  - WorldGuard
 depend:
   - Vault
+  - WorldGuard
+
+loadbefore:
+  - WorldGuard
 
 commands:
   skycore:
@@ -19,3 +22,6 @@ commands:
   racesadmin:
     aliases:
       - ra
+  race:
+    aliases:
+      - races

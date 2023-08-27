@@ -32,7 +32,7 @@ public class UsersRaces {
             ResultSet rs = dmd.getTables(null, null, database, new String[]{"TABLE"});
             value = rs.next();
         } catch (SQLException e) {
-            log(Main.getFailPrefix() + Colors.text("Impossibile capire se la tabella delle razze utente è presente nel database!"));
+            log(Main.getFailPrefix() + Colors.text("Impossibile capire se la tabella degli utenti è presente nel database!"));
             e.printStackTrace();
         }
         return value;
@@ -45,9 +45,9 @@ public class UsersRaces {
             try {
                 PreparedStatement state = conn.prepareStatement(query);
                 state.executeUpdate();
-                log(Main.getSuccessPrefix() + Colors.text("Database delle razze utente creato con successo!"));
+                log(Main.getSuccessPrefix() + Colors.text("Database degli utenti creato con successo!"));
             } catch (SQLException e) {
-                log(Main.getFailPrefix() + Colors.text("Impossibile creare il database delle razze utente!"));
+                log(Main.getFailPrefix() + Colors.text("Impossibile creare il database degli utenti utente!"));
                 e.printStackTrace();
                 plugin.setCanConnect(false);
                 plugin.disablePlugin();

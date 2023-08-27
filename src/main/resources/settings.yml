@@ -13,10 +13,15 @@ settings:
       enable: true
       defaultRaceRaw: "Nessuna"
       defaultRaceName: "&cN/A"
-      dayStart: 1500.0
-      nigthStart: 13500.0
-      disallowChat: false
-      world-blacklist: []
+      day:
+        start: 1500.0
+        end: 13500.0
+      durations:
+        init: 999970
+        end: 999999
+      blockChat: false
+      world-blacklist:
+        - ExtremeCave
     events:
       enable: true
     destroyUnbreakable:
@@ -33,8 +38,16 @@ settings:
           pickup:
             enabled: false
             in-inventory: false
-    autoPickup:
-      enable: true
+  strings:
+    valueFormatSize: 5
+    valueFormatting:
+      - '1000.0-k'
+      - '1000000.0-m'
+      - '1000000000.0-M'
+      - '1000000000000.0-b'
+      - '1000000000000000.0-B'
+      - '1000000000000000000.0-t'
+      - '1000000000000000000000.0-T'
 messages:
   prefixes:
     success: "&8[&a!&8] &7"
@@ -51,6 +64,7 @@ messages:
           - ""
           - "<SOLID:CAD224>Informazioni:"
           - " &e🟆 &7Nome: &e${raceName}"
+          - " &e🟆 &7Titlo: &e${raceTitle}"
           - " &e🟆 &7Id: &e${raceId}"
           - "&8&m                              "
           - "${copyRaceId}"
@@ -58,6 +72,10 @@ messages:
         targets:
           set: "%spHai impostato la razza &a${raceName}&7 all'utente &a${username}&7."
           reset: "%spHai resettato la razza all'utente &a${username}&7."
+    users:
+      races:
+        choose: "%spHai scelto la razza &a${raceName}&7."
+        reset: "%spHai resettato la tua razza."
   info:
     admin:
       races:
@@ -77,6 +95,9 @@ messages:
         reset:
           from-death: "%ipLa razza &e${raceName}&7 è stata eliminata, non ne fai più parte."
           from-admin: "%ipUn amministratore ha rimosso la tua razza."
+    money:
+     take: "&7- &e€${value-formatted}"
+     give: "&7+ &e€${value-formatted}"
   errors:
     no-perm:
       command: "%fpNecessiti del permesso &c${node}&7 per eseguire questo comando."
@@ -88,9 +109,19 @@ messages:
         dont-exists: "%fpNon esiste una razza con questo nome."
         targets:
           user-not-found: "%fpQuest'utente non è mai entrato nel server."
-          already-have: "%fpL'utente ha già la classe richiesta."
+          already-have: "%fpL'utente ha già la razza richiesta."
+          already-have-ones: "%fpL'utente ha già una razza."
+          dont-have: "%fpL'utente non ha nessuna razza attiva al momento."
+    users:
+      races:
+        dont-have: "%fpNon hai nessuna razza attiva al momento."
+        dont-exists: "%fpLa razza scelta non esiste."
+        already-have: "%fpHai già una razza."
     general:
       module-disabled: "%fpModulo non attivo."
+      races:
+        chat:
+          not-allowed: "%fpPer poter chattare in chat devi scegliere una classe."
   others:
     admin:
       races:
@@ -126,3 +157,10 @@ permissions:
         reset: skycore.admin.races.target-reset
         info: skycore.admin.races.info
       list: skycore.admin.races.list
+  user-commands:
+    races:
+      main: skycore.user.races.main
+      gui: skycore.user.races.gui
+      choose: skycore.user.races.choose_race
+      getRace: skycore.getRace.<raceName>
+      reset: skycore.user.races.reset_race

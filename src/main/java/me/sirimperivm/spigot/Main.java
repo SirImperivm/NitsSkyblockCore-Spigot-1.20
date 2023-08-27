@@ -3,13 +3,21 @@ package me.sirimperivm.spigot;
 import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
+import me.sirimperivm.spigot.assets.managers.dependencies.PapiExpansions;
+import me.sirimperivm.spigot.assets.managers.dependencies.Vault;
 import me.sirimperivm.spigot.assets.utils.Colors;
 import me.sirimperivm.spigot.modules.commands.admin.core.AdminCoreCommand;
 import me.sirimperivm.spigot.modules.commands.admin.races.AdminRaceCommand;
+import me.sirimperivm.spigot.modules.commands.user.races.RaceCommand;
+import me.sirimperivm.spigot.modules.listeners.ChatListener;
+import me.sirimperivm.spigot.modules.listeners.ClickListener;
 import me.sirimperivm.spigot.modules.listeners.JoinListener;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminCoreTabCompleter;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminRaceTabCompleter;
+import me.sirimperivm.spigot.modules.tabCompleters.RaceTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import static org.bukkit.Bukkit.getPluginManager;
 
 @SuppressWarnings("all")
 public final class Main extends JavaPlugin {
@@ -23,6 +31,8 @@ public final class Main extends JavaPlugin {
     private static Modules mods;
     private static String defaultRaceRaw;
     private static String defaultRaceName;
+    private static Vault vault;
+    private static PapiExpansions papi;
 
     private boolean canConnect = false;
 
@@ -47,6 +57,12 @@ public final class Main extends JavaPlugin {
         data = new Db();
         data.setup();
         mods = data.getMods();
+        mods.createRace(getServer().getConsoleSender(), defaultRaceRaw, defaultRaceName);
+        vault = new Vault();
+        papi = new PapiExpansions(plugin);
+        if (getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PapiExpansions(plugin).register();
+        }
     }
 
     void close() {
@@ -59,11 +75,15 @@ public final class Main extends JavaPlugin {
 
         getServer().getPluginCommand("skycore").setExecutor(new AdminCoreCommand());
         getServer().getPluginCommand("racesadmin").setExecutor(new AdminRaceCommand());
+        getServer().getPluginCommand("race").setExecutor(new RaceCommand());
 
         getServer().getPluginCommand("skycore").setTabCompleter(new AdminCoreTabCompleter());
         getServer().getPluginCommand("racesadmin").setTabCompleter(new AdminRaceTabCompleter());
+        getServer().getPluginCommand("race").setTabCompleter(new RaceTabCompleter());
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        getServer().getPluginManager().registerEvents(new ClickListener(), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
 
         log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin attivato correttamente!</RAINBOW>"));
     }
@@ -75,7 +95,7 @@ public final class Main extends JavaPlugin {
     }
 
     public void disablePlugin() {
-        getServer().getPluginManager().disablePlugin(plugin);
+        getPluginManager().disablePlugin(plugin);
     }
     public void reloadPlugin() {
         conf.loadAll();
@@ -120,5 +140,13 @@ public final class Main extends JavaPlugin {
 
     public static Modules getMods() {
         return mods;
+    }
+
+    public static PapiExpansions getPapi() {
+        return papi;
+    }
+
+    public static Vault getVault() {
+        return vault;
     }
 }

@@ -41,13 +41,14 @@ public class AdminRaceTabCompleter implements TabCompleter {
                 } else if (a.length == 2) {
                     List<String> toReturn = new ArrayList<>();
                     if (a[0].equalsIgnoreCase("create")) {
-                        toReturn.add("<inserisci Razza>");
+                        toReturn.add("<nome razza>");
                     }
                     if (a[0].equalsIgnoreCase("delete")) {
                         for (String raceId : mods.getGeneratedRacesId().keySet()) {
                             String raceName = mods.getGeneratedRacesId().get(raceId);
                             toReturn.add(raceName);
                         }
+                        toReturn.remove(Main.getDefaultRaceRaw());
                     }
                     if (a[0].equalsIgnoreCase("info") || a[0].equalsIgnoreCase("reset") || a[0].equalsIgnoreCase("set")) {
                         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -58,9 +59,17 @@ public class AdminRaceTabCompleter implements TabCompleter {
                 } else if (a.length == 3) {
                     List<String> toReturn = new ArrayList<>();
                     if (a[0].equalsIgnoreCase("set")) {
-                        for (String raceId : mods.getGeneratedRacesId().keySet()) {
-                            String raceName = mods.getGeneratedRacesId().get(raceId);
-                            toReturn.add(raceName);
+                        if (!a[1].equals(null)) {
+                            for (String raceId : mods.getGeneratedRacesId().keySet()) {
+                                String raceName = mods.getGeneratedRacesId().get(raceId);
+                                toReturn.add(raceName);
+                            }
+                            toReturn.remove(Main.getDefaultRaceRaw());
+                        }
+                    }
+                    if (a[0].equalsIgnoreCase("create")) {
+                        if (!a[1].equals(null)) {
+                            toReturn.add("<titolo visualizzato>");
                         }
                     }
                     return toReturn;
