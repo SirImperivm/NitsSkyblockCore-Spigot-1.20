@@ -11,6 +11,7 @@ import me.sirimperivm.spigot.modules.commands.admin.races.AdminRaceCommand;
 import me.sirimperivm.spigot.modules.commands.user.races.RaceCommand;
 import me.sirimperivm.spigot.modules.listeners.ChatListener;
 import me.sirimperivm.spigot.modules.listeners.ClickListener;
+import me.sirimperivm.spigot.modules.listeners.InteractionListener;
 import me.sirimperivm.spigot.modules.listeners.JoinListener;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminCoreTabCompleter;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminRaceTabCompleter;
@@ -84,6 +85,7 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new ClickListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(new InteractionListener(), this);
 
         log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin attivato correttamente!</RAINBOW>"));
     }

@@ -22,11 +22,10 @@ settings:
       blockChat: false
       world-blacklist:
         - ExtremeCave
-    events:
-      enable: true
     destroyUnbreakable:
       enable: true
-      world-blacklist: []
+      world-blacklist:
+        - ExtremeCave
       block-list:
         1:
           material: END_PORTAL_FRAME
@@ -38,6 +37,33 @@ settings:
           pickup:
             enabled: false
             in-inventory: false
+    extraCave:
+      enable: true
+      world-whitelist:
+        - ExtremeCave
+      regenerativeOre: CRACKED_STONE_BRICKS
+      ores-list:
+        1:
+          material: COAL_ORE
+          cooldown: 20 # Cooldown in secondi.
+          customDrop:
+            enabled: false
+            drops:
+              - "COAL;3;5"
+        2:
+          material: IRON_ORE
+          cooldown: 20 # Cooldown in secondi.
+          customDrop:
+            enabled: false
+            drops:
+              - "RAW_IRON;3;5"
+        3:
+          material: GOLD_ORE
+          cooldown: 20 # Cooldown in secondi.
+          customDrop:
+            enabled: false
+            drops:
+              - "RAW_GOLD;3;5"
   strings:
     valueFormatSize: 5
     valueFormatting:
