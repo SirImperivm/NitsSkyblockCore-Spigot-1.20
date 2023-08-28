@@ -71,6 +71,7 @@ public class Gui {
                     for (String line : conf.getGuis().getStringList(path + ".lore")) {
                         lore.add(Colors.text(line
                                 .replace("${raceTitle}", mods.getRaceTitle(raceName))
+                                .replace("${raceName}", raceName)
                         ));
                     }
                     meta.setLore(lore);
@@ -101,6 +102,40 @@ public class Gui {
                     for (String line : conf.getGuis().getStringList(path + ".lore")) {
                         lore.add(Colors.text(line
                                 .replace("${raceTitle}", mods.getRaceTitle(raceName))
+                                .replace("${raceName}", raceName)
+                        ));
+                    }
+                    meta.setLore(lore);
+                    boolean glowing = conf.getGuis().getBoolean(path + ".glowing");
+                    if (glowing) {
+                        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+                        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                    }
+                    for (String flag : conf.getGuis().getStringList(path + ".itemFlags")) {
+                        meta.addItemFlags(ItemFlag.valueOf(flag));
+                    }
+                    meta.setCustomModelData(conf.getGuis().getInt(path + ".model"));
+                    material.setItemMeta(meta);
+
+                    for (Integer i : slots) {
+                        inv.setItem(i, material);
+                    }
+                }
+
+                if (raceName.equalsIgnoreCase(data.getUsersRaces().getUserRace(p.getName()))) {
+                    String path = "guis.mainRacesGui.items." + item + ".already-have";
+                    List<Integer> slots = conf.getGuis().getIntegerList(itemsPath + ".slots");
+                    ItemStack material = new ItemStack(Material.getMaterial(conf.getGuis().getString(path + ".material")));
+                    ItemMeta meta = material.getItemMeta();
+                    String displayName = conf.getGuis().getString(path + ".displayName");
+                    if (!displayName.equalsIgnoreCase("null")) {
+                        meta.setDisplayName(Colors.text(displayName));
+                    }
+                    List<String> lore = new ArrayList<String>();
+                    for (String line : conf.getGuis().getStringList(path + ".lore")) {
+                        lore.add(Colors.text(line
+                                .replace("${raceTitle}", mods.getRaceTitle(raceName))
+                                .replace("${raceName}", raceName)
                         ));
                     }
                     meta.setLore(lore);

@@ -164,3 +164,8 @@ permissions:
       choose: skycore.user.races.choose_race
       getRace: skycore.getRace.<raceName>
       reset: skycore.user.races.reset_race
+placeholders:
+  user:
+    race:
+      name: user_race_name # Il placeholder relativo è %skycore_user_race_name% mostrerà il nome della razza.
+      title: user_race_title # Il placeholder relativo è %skycore_user_race_title% mostrerà il titolo della razza.

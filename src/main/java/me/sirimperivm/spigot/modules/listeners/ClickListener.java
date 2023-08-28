@@ -3,6 +3,7 @@ package me.sirimperivm.spigot.modules.listeners;
 import me.sirimperivm.spigot.Main;
 import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
+import me.sirimperivm.spigot.assets.managers.Gui;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.managers.dependencies.Vault;
 import me.sirimperivm.spigot.assets.others.Strings;
@@ -29,12 +30,12 @@ public class ClickListener implements Listener {
         String title = e.getView().getTitle();
         int slot = e.getSlot();
 
-        if (title.equalsIgnoreCase(Config.getTransl("guis", "guis.mainRacesGui"))) {
+        if (title.equalsIgnoreCase(Config.getTransl("guis", "guis.mainRacesGui.title"))) {
             e.setCancelled(true);
             e.setResult(Event.Result.DENY);
 
             for (String item : conf.getGuis().getConfigurationSection("guis.mainRacesGui.items").getKeys(false)) {
-                String itemsPath = "guis.mainRacesGui.items" + item;
+                String itemsPath = "guis.mainRacesGui.items." + item;
                 List<Integer> slots = conf.getGuis().getIntegerList(itemsPath + ".slots");
                 if (slots.contains(slot)) {
                     String actionType = conf.getGuis().getString(itemsPath + ".action");
@@ -51,7 +52,18 @@ public class ClickListener implements Listener {
                         } else {
                             p.sendMessage(Config.getTransl("settings", "messages.errors.users.races.dont-have"));
                         }
+                        p.getOpenInventory().close();
+                        Gui g = new Gui();
+                        p.openInventory(g.mainRacesGui(p));
                     } else if (actionType.equalsIgnoreCase("CHOOSE_RACE")) {
+                        String raceSelected = conf.getGuis().getString(itemsPath + ".settings.raceName");
+                        String username = p.getName();
+                        String actualUserRace = data.getUsersRaces().getUserRace(username);
+
+                        if (actualUserRace.equalsIgnoreCase(raceSelected)) {
+                            return;
+                        }
+
                         boolean haveRequirements = true;
                         for (String requirement : conf.getGuis().getConfigurationSection("guis.mainRacesGui.items." + item + ".requirements").getKeys(false)) {
                             String requirementsPath = "guis.mainRacesGui.items." + item + ".requirements." + requirement;
@@ -79,10 +91,6 @@ public class ClickListener implements Listener {
                         }
 
                         if (haveRequirements) {
-                            String raceSelected = conf.getGuis().getString(itemsPath + ".settings.raceName");
-                            String username = p.getName();
-                            String actualUserRace = data.getUsersRaces().getUserRace(username);
-
                             if (actualUserRace.equalsIgnoreCase(Main.getDefaultRaceRaw())) {
                                 for (String requirement : conf.getGuis().getConfigurationSection("guis.mainRacesGui.items." + item + ".requirements").getKeys(false)) {
                                     String requirementsPath = "guis.mainRacesGui.items." + item + ".requirements." + requirement;
@@ -104,6 +112,9 @@ public class ClickListener implements Listener {
                                 mods.setter(p);
                                 p.sendMessage(Config.getTransl("settings", "messages.success.users.races.choose")
                                         .replace("${raceName}", raceSelected));
+                                p.getOpenInventory().close();
+                                Gui g = new Gui();
+                                p.openInventory(g.mainRacesGui(p));
                             } else {
                                 p.sendMessage(Config.getTransl("settings", "messages.errors.users.races.already-have"));
                             }

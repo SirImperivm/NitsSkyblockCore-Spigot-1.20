@@ -77,52 +77,57 @@ guis:
         slots:
           - 50
         action: RESET_RACE
-      testRace:
-        available:
-          material: LIME_DYE
-          displayName: "&aProva"
-          lore:
-            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
-            - " &8▪ &7Razza &9➳ &7${raceTitle}"
-            - ""
-            - "&b&lPotenziamenti di Giorno:"
-            - " &8▪ &7Speed I"
-            - " &8▪ &7+ 2 Cuori"
-            - ""
-            - "&9&lPotenziamenti di Notte:"
-            - " &8▪ &7Speed I"
-            - " &8▪ &7+ 6 Cuori"
-            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
-          glowing: true
-          itemFlags: []
-          model: 9
-        not-available:
-          material: GRAY_DYE
-          displayName: "&aProva"
-          lore:
-            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
-            - " &8▪ &7Razza &9➳ &7${raceTitle}"
-            - ""
-            - " &cNon hai accesso a questa razza."
-            - ""
-            - "&3&lRequisito:"
-            - "&a€ &f2,5k"
-            - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
-          glowing: false
-          itemFlags: []
-          model: 9
-          slots:
-        action: CHOOSE_RACE
-        slots:
-          - 21
-        requirements:
-          1:
-            type: permission
-            node: skycore.getrace.test
-          2:
-            type: money
-            value: 2500.0
-        settings:
-          raceName: Test
-          requirements:
-            not-have: "&4[&c!&4] &7Non hai i requisiti adatti per questa razza. &4[&c!&4] "
+    #  testRace:
+    #    available: # questa configurazione verrà mostrata quando la razza è disponibile.
+    #      material: LIME_DYE
+    #      displayName: "&aProva"
+    #      lore:
+    #        - "&7«&a✦&7»-----&7«&a✦&7»-----&7«&a✦&7»"
+    #        - " &8▪ &7Razza &9➳ &7${raceTitle}"
+    #        - ""
+    #        - "&b&lPotenziamenti di Giorno:"
+    #        - " &8▪ &7Speed I"
+    #        - " &8▪ &7+ 2 Cuori"
+    #        - ""
+    #        - "&9&lPotenziamenti di Notte:"
+    #        - " &8▪ &7Speed I"
+    #        - " &8▪ &7+ 6 Cuori"
+    #        - "&7«&a✦&7»-----&7«&a✦&7»-----&7«&a✦&7»"
+    #      glowing: true
+    #      itemFlags: []
+    #      model: 9
+    #    not-available: # questa configurazione verrà mostrata quando l'utente non avrà accesso alla razza
+    #      material: GRAY_DYE
+    #      displayName: "&cProva"
+    #      lore:
+    #        - "&7«&c✦&7»-----&7«&c✦&7»-----&7«&c✦&7»"
+    #        - " &8▪ &7Razza &9➳ &7${raceTitle}"
+    #        - ""
+    #        - " &cNon hai accesso a questa razza."
+    #        - "&7«&c✦&7»-----&7«&c✦&7»-----&7«&c✦&7»"
+    #      glowing: false
+    #      itemFlags: []
+    #      model: 9
+    #    already-have: # questa configurazione verrà mostrata se l'utente ha già la razza posta allo slot
+    #      material: YELLOW_DYE
+    #      displayName: "&eProva"
+    #      lore:
+    #        - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
+    #        - " &8▪ &7Razza &9➳ &7${raceTitle}"
+    #        - ""
+    #        - " &eHai già questa razza."
+    #        - "&7«&e✦&7»-----&7«&e✦&7»-----&7«&e✦&7»"
+    #      glowing: false
+    #      itemFlags: []
+    #      model: 9
+    #    action: CHOOSE_RACE
+    #    slots: # questa è la lista degli slot in cui sarà presente la razza
+    #      - 21
+    #    requirements:
+    #      1:
+    #        type: permission
+    #        node: skycore.getrace.test
+    #    settings:
+    #      raceName: <nomeRazza> # questa è la razza relativa al config creato con /raceadmin create <razza>
+    #      requirements:
+    #        not-have: "&4[&c!&4] &7Non hai i requisiti adatti per ricevere questa razza. &4[&c!&4] "
