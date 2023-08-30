@@ -7,6 +7,8 @@ import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import org.bukkit.OfflinePlayer;
 
+import java.sql.SQLException;
+
 @SuppressWarnings("all")
 public class PapiExpansions extends PlaceholderExpansion {
 
@@ -34,14 +36,24 @@ public class PapiExpansions extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, String param) {
-        String toReturn = "ERROR!";
+        String toReturn = "";
         String path = "placeholders.";
 
         if (param.equalsIgnoreCase(conf.getSettings().getString(path + "user.race.name"))) {
+            try {
+                if (data.conn == null || data.conn.isClosed()) return "";
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             toReturn = data.getUsersRaces().getUserRace(player.getName());
         }
 
         if (param.equalsIgnoreCase(conf.getSettings().getString(path + "user.race.title"))) {
+            try {
+                if (data.conn == null || data.conn.isClosed()) return "";
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             toReturn = mods.getRaceTitle(data.getUsersRaces().getUserRace(player.getName()));
         }
 

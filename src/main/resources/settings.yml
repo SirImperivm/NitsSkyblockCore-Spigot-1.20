@@ -42,28 +42,48 @@ settings:
       world-whitelist:
         - ExtremeCave
       regenerativeOre: CRACKED_STONE_BRICKS
-      ores-list:
-        1:
-          material: COAL_ORE
-          cooldown: 20 # Cooldown in secondi.
-          customDrop:
-            enabled: false
-            drops:
-              - "COAL;3;5"
-        2:
-          material: IRON_ORE
-          cooldown: 20 # Cooldown in secondi.
-          customDrop:
-            enabled: false
-            drops:
-              - "RAW_IRON;3;5"
-        3:
-          material: GOLD_ORE
-          cooldown: 20 # Cooldown in secondi.
-          customDrop:
-            enabled: false
-            drops:
-              - "RAW_GOLD;3;5"
+      timeCooldowns:
+        normal: 30
+        deepslate: 60
+        blockPlaced: 20
+      block-break-list:
+        - "COAL_ORE;true"
+        - "IRON_ORE;true"
+        - "GOLD_ORE;true"
+        - "COPPER_ORE;true"
+        - "LAPIS_ORE;true"
+        - "REDSTONE_ORE;true"
+        - "DIAMOND_ORE;true"
+        - "EMERALD_ORE;true"
+        - "DEEPSLATE_COAL_ORE;true"
+        - "DEEPSLATE_IRON_ORE;true"
+        - "DEEPSLATE_GOLD_ORE;true"
+        - "DEEPSLATE_COPPER_ORE;true"
+        - "DEEPSLATE_LAPIS_ORE;true"
+        - "DEEPSLATE_REDSTONE_ORE;true"
+        - "DEEPSLATE_DIAMOND_ORE;true"
+        - "DEEPSLATE_EMERALD_ORE;true"
+        - "COBBLESTONE;false"
+        - "COBBLED_DEEPSLATE;false"
+        - "DIRT;false"
+        - "OAK_LOG;false"
+        - "OAK_PLANKS;false"
+        - "CRAFTING_TABLE;false"
+        - "FURNACE;false"
+        - "LADDER;false"
+        - "SCULK_VEIN;false"
+        - "GLOW_LICHEN;false"
+      block-place-list:
+        - "CRAFTING_TABLE;false"
+        - "FURNACE;false"
+        - "COBBLESTONE;true"
+        - "COBBLED_DEEPSLATE;true"
+        - "OAK_LOG;false"
+        - "OAK_PLANKS;true"
+        - "LADDER;true"
+        - "DIRT;true"
+      deny-messages:
+        block-place: "%fpNon puoi piazzare questo blocco qui."
   strings:
     valueFormatSize: 5
     valueFormatting:

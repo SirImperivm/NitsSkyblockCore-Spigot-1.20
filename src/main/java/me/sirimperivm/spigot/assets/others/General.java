@@ -4,6 +4,7 @@ import me.sirimperivm.spigot.assets.utils.Colors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("all")
 public class General {
@@ -14,5 +15,11 @@ public class General {
             cL.add(Colors.text(l));
         }
         return cL;
+    }
+
+    public static int generateRandomNumber(int min, int max) {
+        Random rand = new Random();
+        int toReturn = rand.nextInt(min, max);
+        return toReturn;
     }
 }

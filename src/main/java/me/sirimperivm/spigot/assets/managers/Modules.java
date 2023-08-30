@@ -8,6 +8,8 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
@@ -33,6 +35,8 @@ public class Modules {
 
     private static HashMap<String, Boolean> modulesInfo;
     private static HashMap<String, String> generatedRacesId;
+    private static HashMap<Location, Material> regenerativeBlocks;
+    private static HashMap<Location, Material> regenerativePlacedBlocks;
 
     public Modules() {
         modulesInfo = new HashMap<String, Boolean>();
@@ -61,6 +65,10 @@ public class Modules {
                     settersLoop();
                 }
             }
+        }
+        if (modulesInfo.get("extraCave")) {
+            regenerativeBlocks = new HashMap<Location, Material>();
+            regenerativePlacedBlocks = new HashMap<Location, Material>();
         }
     }
 
@@ -169,6 +177,19 @@ public class Modules {
         }
     }
 
+    public void resetAllBlocks() {
+        for (Location loc : regenerativeBlocks.keySet()) {
+            Material mat = regenerativeBlocks.get(loc);
+            loc.getBlock().setType(mat);
+        }
+        regenerativeBlocks.clear();
+        for (Location loc : regenerativePlacedBlocks.keySet()) {
+            Material mat = regenerativePlacedBlocks.get(loc);
+            loc.getBlock().setType(mat);
+        }
+        regenerativePlacedBlocks.clear();
+    }
+
     public void deleteRace(CommandSender s, String raceName) {
         if (existRace(raceName) && !raceName.equalsIgnoreCase(Main.getDefaultRaceRaw())) {
             for (String targets : data.getUsersRaces().playersInARace(raceName)) {
@@ -272,6 +293,11 @@ public class Modules {
     }
 
     public void setter(Player target) {
+        try {
+            if (data.conn == null || data.conn.isClosed()) return;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String targetName = target.getName();
         String raceName = data.getUsersRaces().getUserRace(targetName);
 
@@ -422,5 +448,13 @@ public class Modules {
 
     public static HashMap<String, String> getGeneratedRacesId() {
         return generatedRacesId;
+    }
+
+    public static HashMap<Location, Material> getRegenerativeBlocks() {
+        return regenerativeBlocks;
+    }
+
+    public static HashMap<Location, Material> getRegenerativePlacedBlocks() {
+        return regenerativePlacedBlocks;
     }
 }

@@ -9,10 +9,7 @@ import me.sirimperivm.spigot.assets.utils.Colors;
 import me.sirimperivm.spigot.modules.commands.admin.core.AdminCoreCommand;
 import me.sirimperivm.spigot.modules.commands.admin.races.AdminRaceCommand;
 import me.sirimperivm.spigot.modules.commands.user.races.RaceCommand;
-import me.sirimperivm.spigot.modules.listeners.ChatListener;
-import me.sirimperivm.spigot.modules.listeners.ClickListener;
-import me.sirimperivm.spigot.modules.listeners.InteractionListener;
-import me.sirimperivm.spigot.modules.listeners.JoinListener;
+import me.sirimperivm.spigot.modules.listeners.*;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminCoreTabCompleter;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminRaceTabCompleter;
 import me.sirimperivm.spigot.modules.tabCompleters.RaceTabCompleter;
@@ -67,6 +64,7 @@ public final class Main extends JavaPlugin {
     }
 
     void close() {
+        mods.resetAllBlocks();
         data.disconnect();
     }
 
@@ -86,6 +84,8 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ClickListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new InteractionListener(), this);
+        getServer().getPluginManager().registerEvents(new BreakListener(), this);
+        getServer().getPluginManager().registerEvents(new PlaceListener(), this);
 
         log(Colors.text("<RAINBOW1>[NitsSkyblockCore] Plugin attivato correttamente!</RAINBOW>"));
     }

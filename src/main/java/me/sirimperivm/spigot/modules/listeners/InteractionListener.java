@@ -70,5 +70,26 @@ public class InteractionListener implements Listener {
                 }
             }
         }
+
+        if (mods.getModulesInfo().get("extraCave")) {
+            if (act == Action.RIGHT_CLICK_BLOCK) {
+                Block b = e.getClickedBlock();
+                Material m = b.getType();
+                String path = "settings.modules.extraCave";
+                List<String> worldBlacklist = conf.getSettings().getStringList(path + ".world-whitelist");
+                if (worldBlacklist.contains(p.getLocation().getWorld().getName())) {
+                    if (
+                            p.getInventory().getItemInMainHand().getType() == Material.BUCKET
+                                    || p.getInventory().getItemInMainHand().getType() == Material.WATER_BUCKET
+                                    || p.getInventory().getItemInMainHand().getType() == Material.LAVA_BUCKET
+                                    || p.getInventory().getItemInOffHand().getType() == Material.LAVA_BUCKET
+                                    || p.getInventory().getItemInOffHand().getType() == Material.WATER_BUCKET
+                                    || p.getInventory().getItemInOffHand().getType() == Material.BUCKET
+                    ) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+        }
     }
 }
