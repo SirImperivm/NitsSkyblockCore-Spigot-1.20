@@ -22,6 +22,9 @@ commands:
   racesadmin:
     aliases:
       - ra
+  extracave:
+    aliases:
+      - exc
   race:
     aliases:
       - races

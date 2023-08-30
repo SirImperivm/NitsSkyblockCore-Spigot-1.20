@@ -39,7 +39,7 @@ public class PapiExpansions extends PlaceholderExpansion {
         String toReturn = "";
         String path = "placeholders.";
 
-        if (param.equalsIgnoreCase(conf.getSettings().getString(path + "user.race.name"))) {
+        if (param.equals(conf.getSettings().getString(path + "user.race.name"))) {
             try {
                 if (data.conn == null || data.conn.isClosed()) return "";
             } catch (SQLException e) {
@@ -48,13 +48,22 @@ public class PapiExpansions extends PlaceholderExpansion {
             toReturn = data.getUsersRaces().getUserRace(player.getName());
         }
 
-        if (param.equalsIgnoreCase(conf.getSettings().getString(path + "user.race.title"))) {
+        if (param.equals(conf.getSettings().getString(path + "user.race.title"))) {
             try {
                 if (data.conn == null || data.conn.isClosed()) return "";
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             toReturn = mods.getRaceTitle(data.getUsersRaces().getUserRace(player.getName()));
+        }
+
+        if (param.equals(conf.getSettings().getString(path + "user.extraCave.bypassing"))) {
+            boolean isBypassing = mods.isBypassing(player.getName());
+            if (isBypassing) {
+                toReturn = Config.getTransl("settings", "messages.info.admin.extraCave.bypass.placeholderFormats.enabled");
+            } else {
+                toReturn = Config.getTransl("settings", "messages.info.admin.extraCave.bypass.placeholderFormats.disabled");
+            }
         }
 
         return toReturn;

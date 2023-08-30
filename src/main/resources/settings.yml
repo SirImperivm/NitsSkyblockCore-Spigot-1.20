@@ -42,6 +42,7 @@ settings:
       world-whitelist:
         - ExtremeCave
       regenerativeOre: CRACKED_STONE_BRICKS
+      bypassMethods: true
       timeCooldowns:
         normal: 30
         deepslate: 60
@@ -134,6 +135,15 @@ messages:
             - "&8&m                              "
             - "&8[&c!&8] &7L'utente non ha una razza."
             - "&8&m                              "
+      extraCave:
+        bypass:
+          string: "%ipModalità bypass ExtraCave &e${status}&7."
+          formats:
+            enabled: "Attivata"
+            disabled: "Disattivata"
+          placeholderFormats:
+            enabled: "&aBypass Attivo."
+            disabled: "&cBypass non Attivo."
     users:
       races:
         received:
@@ -203,6 +213,9 @@ permissions:
         reset: skycore.admin.races.target-reset
         info: skycore.admin.races.info
       list: skycore.admin.races.list
+    extraCave:
+      main: skycore.admin.extracave.main
+      bypass: skycore.admin.extracave.bypass
   user-commands:
     races:
       main: skycore.user.races.main
@@ -213,5 +226,7 @@ permissions:
 placeholders:
   user:
     race:
-      name: user_race_name # Il placeholder relativo è %skycore_user_race_name% mostrerà il nome della razza.
-      title: user_race_title # Il placeholder relativo è %skycore_user_race_title% mostrerà il titolo della razza.
+      name: user_race_name # Il placeholder relativo è %skycore_user_race_name% e mostrerà il nome della razza del player.
+      title: user_race_title # Il placeholder relativo è %skycore_user_race_title% e mostrerà il titolo della razza del player.
+    extraCave:
+      bypassing: user_extraCave_bypassing # Il placeholder relativo è %skycore_user_extraCave_bypassing% e mosterà se il player sta bypassando o no il blocco della extraCave.

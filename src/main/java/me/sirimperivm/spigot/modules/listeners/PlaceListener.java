@@ -35,6 +35,7 @@ public class PlaceListener implements Listener {
             List<String> worldWhitelist = conf.getSettings().getStringList(path + ".world-whitelist");
 
             if (worldWhitelist.contains(world)) {
+                if (mods.getExtraCaveBypasses().get(p.getName())) return;
                 List<String> blockPlaceList = conf.getSettings().getStringList(path + ".block-place-list");
                 HashMap<String, Boolean> blockList = new HashMap<String, Boolean>();
                 for (String line : blockPlaceList) {

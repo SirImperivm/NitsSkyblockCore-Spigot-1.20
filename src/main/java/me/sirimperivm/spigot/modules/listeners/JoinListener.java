@@ -67,5 +67,11 @@ public class JoinListener implements Listener {
 
             mods.setter(p);
         }
+
+        if (mods.getModulesInfo().get("extraCave")) {
+            if (!mods.getExtraCaveBypasses().containsKey(p.getName())) {
+                mods.getExtraCaveBypasses().put(p.getName(), false);
+            }
+        }
     }
 }

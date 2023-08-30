@@ -37,6 +37,7 @@ public class Modules {
     private static HashMap<String, String> generatedRacesId;
     private static HashMap<Location, Material> regenerativeBlocks;
     private static HashMap<Location, Material> regenerativePlacedBlocks;
+    private static HashMap<String, Boolean> extraCaveBypasses;
 
     public Modules() {
         modulesInfo = new HashMap<String, Boolean>();
@@ -69,6 +70,7 @@ public class Modules {
         if (modulesInfo.get("extraCave")) {
             regenerativeBlocks = new HashMap<Location, Material>();
             regenerativePlacedBlocks = new HashMap<Location, Material>();
+            extraCaveBypasses = new HashMap<String, Boolean>();
         }
     }
 
@@ -442,6 +444,11 @@ public class Modules {
         return Config.getTransl("races", "races." + raceName + ".settings.raceTitle");
     }
 
+    public boolean isBypassing(String playerName) {
+        boolean value = extraCaveBypasses.get(playerName);
+        return value;
+    }
+
     public static HashMap<String, Boolean> getModulesInfo() {
         return modulesInfo;
     }
@@ -456,5 +463,9 @@ public class Modules {
 
     public static HashMap<Location, Material> getRegenerativePlacedBlocks() {
         return regenerativePlacedBlocks;
+    }
+
+    public static HashMap<String, Boolean> getExtraCaveBypasses() {
+        return extraCaveBypasses;
     }
 }

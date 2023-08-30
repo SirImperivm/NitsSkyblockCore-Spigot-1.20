@@ -17,6 +17,12 @@ helps:
       - "&a/racesadmin(ra) set &e<nomeplayer> <razza> &7- &fImposti una razza ad un utente."
       - ""
       - "&8&m                              "
+    extraCave:
+      - "&8&m                              "
+      - ""
+      - "&a/extracave(exc) bypass &7- &fAttiva/Disattiva la modalità di bypass nella extraCave."
+      - ""
+      - "&8&m                              "
   user-commands:
     races:
       - "&8&m                              "

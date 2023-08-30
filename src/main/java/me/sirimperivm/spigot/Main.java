@@ -7,10 +7,12 @@ import me.sirimperivm.spigot.assets.managers.dependencies.PapiExpansions;
 import me.sirimperivm.spigot.assets.managers.dependencies.Vault;
 import me.sirimperivm.spigot.assets.utils.Colors;
 import me.sirimperivm.spigot.modules.commands.admin.core.AdminCoreCommand;
+import me.sirimperivm.spigot.modules.commands.admin.extraCave.AdminExtracaveCommand;
 import me.sirimperivm.spigot.modules.commands.admin.races.AdminRaceCommand;
 import me.sirimperivm.spigot.modules.commands.user.races.RaceCommand;
 import me.sirimperivm.spigot.modules.listeners.*;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminCoreTabCompleter;
+import me.sirimperivm.spigot.modules.tabCompleters.AdminExtracaveTabCompleter;
 import me.sirimperivm.spigot.modules.tabCompleters.AdminRaceTabCompleter;
 import me.sirimperivm.spigot.modules.tabCompleters.RaceTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -65,6 +67,7 @@ public final class Main extends JavaPlugin {
 
     void close() {
         mods.resetAllBlocks();
+        mods.getExtraCaveBypasses().clear();
         data.disconnect();
     }
 
@@ -74,10 +77,12 @@ public final class Main extends JavaPlugin {
 
         getServer().getPluginCommand("skycore").setExecutor(new AdminCoreCommand());
         getServer().getPluginCommand("racesadmin").setExecutor(new AdminRaceCommand());
+        getServer().getPluginCommand("extracave").setExecutor(new AdminExtracaveCommand());
         getServer().getPluginCommand("race").setExecutor(new RaceCommand());
 
         getServer().getPluginCommand("skycore").setTabCompleter(new AdminCoreTabCompleter());
         getServer().getPluginCommand("racesadmin").setTabCompleter(new AdminRaceTabCompleter());
+        getServer().getPluginCommand("extracave").setTabCompleter(new AdminExtracaveTabCompleter());
         getServer().getPluginCommand("race").setTabCompleter(new RaceTabCompleter());
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
