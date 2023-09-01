@@ -6,6 +6,7 @@ import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("all")
 public class BreakListener implements Listener {
@@ -64,10 +66,20 @@ public class BreakListener implements Listener {
                     if (regenerate) {
                         e.setCancelled(true);
                         for (ItemStack drop : b.getDrops()) {
+                            int amount = drop.getAmount();
+                            if (p.getInventory().getItemInMainHand().getType().toString().endsWith("_PICKAXE") && p.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS) > 0) {
+                                Random rand = new Random();
+                                int fortuneLevel = p.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
+                                int randomInt = rand.nextInt(1, 100);
+                                if (randomInt > 25 && randomInt <= 40) {
+                                    amount = amount * fortuneLevel;
+                                }
+                            }
+                            drop.setAmount(amount);
                             if (!inventoryFull(p, drop)) {
                                 p.getInventory().addItem(drop);
                             } else {
-                                p.getLocation().getWorld().dropItem(p.getLocation(), drop);
+                                b.getLocation().getWorld().dropItem(p.getLocation(), drop);
                             }
                         }
                         Material regenMaterial = Material.getMaterial(conf.getSettings().getString("settings.modules.extraCave.regenerativeOre"));

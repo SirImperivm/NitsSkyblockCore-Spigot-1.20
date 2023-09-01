@@ -42,7 +42,6 @@ settings:
       world-whitelist:
         - ExtremeCave
       regenerativeOre: CRACKED_STONE_BRICKS
-      bypassMethods: true
       timeCooldowns:
         normal: 30
         deepslate: 60
