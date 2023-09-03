@@ -4,6 +4,7 @@ helps:
       - "&8&m                              "
       - ""
       - "&a/skycore(skyc) reload &7- &fRicarica il plugin."
+      - "&a/skycore(skyc) sendmessage &e<player> <message> &7- &fInvia un messaggio ad un utente."
       - ""
       - "&8&m                              "
     races:

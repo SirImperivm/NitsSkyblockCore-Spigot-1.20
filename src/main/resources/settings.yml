@@ -84,6 +84,8 @@ settings:
         - "DIRT;true"
       deny-messages:
         block-place: "%fpNon puoi piazzare questo blocco qui."
+    message-sender:
+      enable: true
   strings:
     valueFormatSize: 5
     valueFormatting:
@@ -167,6 +169,8 @@ messages:
           already-have: "%fpL'utente ha già la razza richiesta."
           already-have-ones: "%fpL'utente ha già una razza."
           dont-have: "%fpL'utente non ha nessuna razza attiva al momento."
+      message-sender:
+        target-not-found: "%fpUtente &c${player}&7 non trovato."
     users:
       races:
         dont-have: "%fpNon hai nessuna razza attiva al momento."
@@ -203,6 +207,7 @@ permissions:
     core:
       main: skycore.admin.core.main
       reload: skycore.admin.core.reload
+      send-message: skycore.admin.core.send-message
     races:
       main: skycore.admin.races.main
       create: skycore.admin.races.create
